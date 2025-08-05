@@ -1,0 +1,63 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: sw-music-api
+  labels:
+    app: sw-music-api
+    version: v1
+  annotations:
+    run.googleapis.com/ingress: all
+    run.googleapis.com/execution-environment: gen2
+spec:
+  template:
+    metadata:
+      annotations:
+        run.googleapis.com/cpu: "2"
+        run.googleapis.com/memory: "4Gi"
+        run.googleapis.com/max-instances: "10"
+        run.googleapis.com/min-instances: "0"
+    spec:
+      containerConcurrency: 80
+      timeoutSeconds: 300
+      containers:
+      - image: gcr.io/PROJECT_ID/sw-music-backend:latest
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        env:
+        - name: ENVIRONMENT
+          value: "production"
+        - name: GOOGLE_CLOUD_PROJECT
+          value: "PROJECT_ID"
+        - name: GOOGLE_CLOUD_LOCATION
+          value: "us-central1"
+        - name: VERTEX_AI_MODEL
+          value: "gemini-2.5-flash-lite"
+        - name: PORT
+          value: "8000"
+        resources:
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+        startupProbe:
+          httpGet:
+            path: /api/v1/utils/health-check
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /api/v1/utils/health-check
+            port: 8000
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/v1/google-ai/health
+            port: 8000
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3

@@ -1,0 +1,39 @@
+# Dockerfile para Cloud Run - SW Music FastAPI
+FROM python:3.11-slim
+
+# Configurar variables de entorno
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    curl \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear directorio de trabajo
+WORKDIR /app
+
+# Copiar y instalar dependencias Python
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar código de la aplicación
+COPY . .
+
+# Crear usuario no-root para seguridad
+RUN useradd --create-home --shell /bin/bash app && chown -R app:app /app
+USER app
+
+# Configurar puerto
+ENV PORT=8000
+EXPOSE $PORT
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:$PORT/api/v1/utils/health-check || exit 1
+
+# Comando de inicio
+CMD exec uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1
