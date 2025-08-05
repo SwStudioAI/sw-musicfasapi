@@ -1,0 +1,14 @@
+{
+  "name": "sw-music-fastapi-main-trigger",
+  "description": "Auto deploy SW Music FastAPI on main branch push",
+  "github": {
+    "owner": "SwStudioAI",
+    "name": "sw-musicfasapi",
+    "push": {
+      "branch": "^main$"
+    }
+  },
+  "filename": "cloudbuild.yaml",
+  "substitutions": {},
+  "includeBuildLogs": "INCLUDE_BUILD_LOGS_WITH_STATUS"
+}

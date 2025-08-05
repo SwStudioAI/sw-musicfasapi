@@ -1,0 +1,8 @@
+{
+  "prompt": "Crea una introducción de 30 segundos para una canción de rock en español que hable sobre la libertad y la rebeldía juvenil",
+  "model": "text-bison",
+  "temperature": 0.8,
+  "max_output_tokens": 256,
+  "top_p": 0.8,
+  "top_k": 40
+}
