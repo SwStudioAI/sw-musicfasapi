@@ -6,7 +6,7 @@ steps:
     args: [
       'build',
       '-f', 'Dockerfile.cloudrun',
-      '-t', 'gcr.io/$PROJECT_ID/sw-music-backend:${SHORT_SHA:-latest}',
+      '-t', 'gcr.io/$PROJECT_ID/sw-music-backend:$_TAG',
       '-t', 'gcr.io/$PROJECT_ID/sw-music-backend:latest',
       '.'
     ]
@@ -14,7 +14,7 @@ steps:
 
   # Push imagen a Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/sw-music-backend:${SHORT_SHA:-latest}']
+    args: ['push', 'gcr.io/$PROJECT_ID/sw-music-backend:$_TAG']
     id: 'push-sha'
     waitFor: ['build']
 
@@ -27,7 +27,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [
       'run', 'deploy', 'sw-music-api',
-      '--image', 'gcr.io/$PROJECT_ID/sw-music-backend:${SHORT_SHA:-latest}',
+      '--image', 'gcr.io/$PROJECT_ID/sw-music-backend:$_TAG',
       '--region', 'us-central1',
       '--platform', 'managed',
       '--allow-unauthenticated',
@@ -50,7 +50,11 @@ options:
 # Timeout global
 timeout: '1200s'
 
+# Sustituciones
+substitutions:
+  _TAG: '${SHORT_SHA}'
+
 # Imágenes a guardar
 images:
-  - 'gcr.io/$PROJECT_ID/sw-music-backend:${SHORT_SHA:-latest}'
+  - 'gcr.io/$PROJECT_ID/sw-music-backend:$_TAG'
   - 'gcr.io/$PROJECT_ID/sw-music-backend:latest'
