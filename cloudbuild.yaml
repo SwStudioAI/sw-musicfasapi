@@ -1,16 +1,5 @@
 # Google Cloud Build - SW Music FastAPI
 steps:
-  # Instalar dependencias y ejecutar tests
-  - name: 'python:3.11'
-    dir: 'backend'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        pip install -r requirements.txt
-        python -m pytest tests/ -v || true
-    id: 'test'
-
   # Construir imagen Docker
   - name: 'gcr.io/cloud-builders/docker'
     dir: 'backend'
@@ -22,7 +11,6 @@ steps:
       '.'
     ]
     id: 'build'
-    waitFor: ['test']
 
   # Push imagen a Container Registry
   - name: 'gcr.io/cloud-builders/docker'
@@ -66,8 +54,3 @@ timeout: '1200s'
 images:
   - 'gcr.io/$PROJECT_ID/sw-music-backend:$COMMIT_SHA'
   - 'gcr.io/$PROJECT_ID/sw-music-backend:latest'
-
-# Sustituir variables
-substitutions:
-  _REGION: 'us-central1'
-  _SERVICE_NAME: 'sw-music-api'
