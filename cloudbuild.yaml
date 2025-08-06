@@ -34,7 +34,7 @@ steps:
       '--port', '8000',
       '--memory', '2Gi',
       '--cpu', '2',
-      '--max-instances', '10',
+      '--max-instances', '5',
       '--min-instances', '0',
       '--timeout', '300s',
       '--add-cloudsql-instances', 'sw-musicfasapi:us-central1:almacenamientosw',
