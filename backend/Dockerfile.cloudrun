@@ -37,5 +37,5 @@ USER app
 ENV PORT=8000
 EXPOSE $PORT
 
-# Comando de inicio con reintentos
-CMD exec uv run python start.py
+# Activar el entorno virtual y ejecutar
+CMD [".venv/bin/python", "start.py"]
