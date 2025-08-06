@@ -37,7 +37,7 @@ steps:
       '--max-instances', '10',
       '--min-instances', '0',
       '--timeout', '300s',
-      '--set-env-vars', 'ENVIRONMENT=production,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=us-central1,VERTEX_AI_MODEL=gemini-2.5-flash-lite'
+      '--set-env-vars', 'ENVIRONMENT=production,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=us-central1,VERTEX_AI_MODEL=gemini-2.5-flash-lite,SECRET_KEY=AlM3G7m52FQV9bkqD0TDYegcJYC1_sUzVkAWVYns2aI,FIRST_SUPERUSER=useruid@sw-music.com,FIRST_SUPERUSER_PASSWORD=testpass123,BACKEND_CORS_ORIGINS=*,PROJECT_NAME=SW Music Fast API,SOUNDCLOUD_CLIENT_ID=5AZEs2KwgAGDoLoHdeYVPWmBe8y23v2Y,SOUNDCLOUD_CLIENT_SECRET=GE0pQLMuD7oxwjm4H96x8d3PuekADsZg,SOUNDCLOUD_REDIRECT_URI=https://sw-music.com/auth/soundcloud/callback,GOOGLE_API_KEY=AIzaSyCFtXZb15Z70B-YXP0bdxv-f0BT53-tcew,POSTGRES_SERVER=localhost,POSTGRES_USER=postgres,POSTGRES_PASSWORD=postgres,POSTGRES_DB=sw_music_api'
     ]
     id: 'deploy'
     waitFor: ['push-sha', 'push-latest']

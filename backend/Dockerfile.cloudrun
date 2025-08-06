@@ -12,6 +12,8 @@ ENV PYTHONUNBUFFERED=1 \
 RUN apt-get update && apt-get install -y \
     curl \
     gcc \
+    g++ \
+    libpq-dev \
     && rm -rf /var/lib/apt/lists/* \
     && pip install uv
 
@@ -22,13 +24,10 @@ WORKDIR /app
 COPY pyproject.toml uv.lock ./
 
 # Instalar dependencias con uv
-RUN uv sync --frozen --no-install-project
+RUN uv sync --frozen --no-dev
 
 # Copiar código de la aplicación
 COPY . .
-
-# Instalar el proyecto
-RUN uv sync --frozen
 
 # Crear usuario no-root para seguridad
 RUN useradd --create-home --shell /bin/bash app && chown -R app:app /app
