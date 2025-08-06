@@ -60,13 +60,15 @@ class Settings(BaseSettings):
     @computed_field  # type: ignore[prop-decorator]
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:
-        return MultiHostUrl.build(
-            scheme="postgresql+psycopg",
-            username=self.POSTGRES_USER,
-            password=self.POSTGRES_PASSWORD,
-            host=self.POSTGRES_SERVER,
-            port=self.POSTGRES_PORT,
-            path=self.POSTGRES_DB,
+        return str(
+            MultiHostUrl.build(
+                scheme="postgresql+psycopg",
+                username=self.POSTGRES_USER,
+                password=self.POSTGRES_PASSWORD,
+                host=self.POSTGRES_SERVER,
+                port=self.POSTGRES_PORT,
+                path=self.POSTGRES_DB,
+            )
         )
 
     SMTP_TLS: bool = True
@@ -105,6 +107,11 @@ class Settings(BaseSettings):
     GOOGLE_CLIENT_ID: str = ""
     GOOGLE_CLIENT_SECRET: str = ""
     GOOGLE_REDIRECT_URI: str = ""
+    
+    # SoundCloud OAuth Configuration
+    SOUNDCLOUD_CLIENT_ID: str = ""
+    SOUNDCLOUD_CLIENT_SECRET: str = ""
+    SOUNDCLOUD_REDIRECT_URI: str = ""
 
     def _check_default_secret(self, var_name: str, value: str | None) -> None:
         if value == "changethis":
