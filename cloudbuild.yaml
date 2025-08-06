@@ -1,4 +1,5 @@
-# Google Cloud Build - SW Music FastAPI      '--set-env-vars', 'ENVIRONMENT=production,GOOGLE_CLOUD_PROJECT=sw-musicfasapi,GOOGLE_CLOUD_LOCATION=us-central1,VERTEX_AI_MODEL=gemini-2.5-flash-lite,SECRET_KEY=AlM3G7m52FQV9bkqD0TDYegcJYC1_sUzVkAWVYns2aI,FIRST_SUPERUSER=useruid@sw-music.com,FIRST_SUPERUSER_PASSWORD=%R6wjJZ33i$&K$cq,BACKEND_CORS_ORIGINS=*,PROJECT_NAME=SW Music Fast API,SOUNDCLOUD_CLIENT_ID=5AZEs2KwgAGDoLoHdeYVPWmBe8y23v2Y,SOUNDCLOUD_CLIENT_SECRET=GE0pQLMuD7oxwjm4H96x8d3PuekADsZg,SOUNDCLOUD_REDIRECT_URI=https://sw-music.com/auth/soundcloud/callback,GOOGLE_API_KEY=AIzaSyCFtXZb15Z70B-YXP0bdxv-f0BT53-tcew,POSTGRES_SERVER=/cloudsql/sw-musicfasapi:us-central1:almacenamientosw,POSTGRES_PORT=5432,POSTGRES_USER=postgres,POSTGRES_PASSWORD=t0bTZ#1L3du7Fie2,POSTGRES_DB=sw_music_api,DATABASE_URL=postgresql://postgres:t0bTZ#1L3du7Fie2@/cloudsql/sw-musicfasapi:us-central1:almacenamientosw/sw_music_api'steps:
+# Google Cloud Build - SW Music FastAPI
+steps:
   # Construir imagen Docker
   - name: 'gcr.io/cloud-builders/docker'
     dir: 'backend'
@@ -37,7 +38,7 @@
       '--min-instances', '0',
       '--timeout', '900s',
       '--add-cloudsql-instances', 'sw-musicfasapi:us-central1:almacenamientosw',
-      '--set-env-vars', 'ENVIRONMENT=production,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=us-central1,VERTEX_AI_MODEL=gemini-2.5-flash-lite,SECRET_KEY=AlM3G7m52FQV9bkqD0TDYegcJYC1_sUzVkAWVYns2aI,FIRST_SUPERUSER=useruid@sw-music.com,FIRST_SUPERUSER_PASSWORD=%R6wjJZ33i$&K$cq,BACKEND_CORS_ORIGINS=*,PROJECT_NAME=SW Music Fast API,SOUNDCLOUD_CLIENT_ID=5AZEs2KwgAGDoLoHdeYVPWmBe8y23v2Y,SOUNDCLOUD_CLIENT_SECRET=GE0pQLMuD7oxwjm4H96x8d3PuekADsZg,SOUNDCLOUD_REDIRECT_URI=https://sw-music.com/auth/soundcloud/callback,GOOGLE_API_KEY=AIzaSyCFtXZb15Z70B-YXP0bdxv-f0BT53-tcew,POSTGRES_SERVER=/cloudsql/sw-musicfasapi:us-central1:almacenamientosw,POSTGRES_USER=postgres,POSTGRES_PASSWORD=t0bTZ#1L3du7Fie2,POSTGRES_DB=sw_music_api,DATABASE_URL=postgresql://postgres:t0bTZ#1L3du7Fie2@/cloudsql/sw-musicfasapi:us-central1:almacenamientosw/sw_music_api'
+      '--set-env-vars', 'ENVIRONMENT=production,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=us-central1,VERTEX_AI_MODEL=gemini-2.5-flash-lite,SECRET_KEY=AlM3G7m52FQV9bkqD0TDYegcJYC1_sUzVkAWVYns2aI,FIRST_SUPERUSER=useruid@sw-music.com,FIRST_SUPERUSER_PASSWORD=%R6wjJZ33i$&K$cq,BACKEND_CORS_ORIGINS=*,PROJECT_NAME=SW Music Fast API,SOUNDCLOUD_CLIENT_ID=5AZEs2KwgAGDoLoHdeYVPWmBe8y23v2Y,SOUNDCLOUD_CLIENT_SECRET=GE0pQLMuD7oxwjm4H96x8d3PuekADsZg,SOUNDCLOUD_REDIRECT_URI=https://sw-music.com/auth/soundcloud/callback,GOOGLE_API_KEY=AIzaSyCFtXZb15Z70B-YXP0bdxv-f0BT53-tcew,POSTGRES_SERVER=/cloudsql/sw-musicfasapi:us-central1:almacenamientosw,POSTGRES_PORT=5432,POSTGRES_USER=postgres,POSTGRES_PASSWORD=t0bTZ#1L3du7Fie2,POSTGRES_DB=sw_music_api,DATABASE_URL=postgresql://postgres:t0bTZ#1L3du7Fie2@/cloudsql/sw-musicfasapi:us-central1:almacenamientosw/sw_music_api'
     ]
     id: 'deploy'
     waitFor: ['push-sha', 'push-latest']
