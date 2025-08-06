@@ -28,7 +28,7 @@ steps:
     args: [
       'run', 'deploy', 'sw-music-api',
       '--image', 'gcr.io/$PROJECT_ID/sw-music-backend:$_TAG',
-      '--region', 'us-central1',
+      '--region', 'europe-west1',
       '--platform', 'managed',
       '--allow-unauthenticated',
       '--port', '8000',
