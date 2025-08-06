@@ -135,4 +135,10 @@ class Settings(BaseSettings):
         return self
 
 
-settings = Settings()  # type: ignore
+
+import sys
+try:
+    settings = Settings()  # type: ignore
+except Exception as e:
+    print(f"[ERROR] Fallo instanciando Settings: {e}")
+    sys.exit(3)
